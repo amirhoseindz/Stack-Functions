@@ -15,11 +15,10 @@ struct Stacks
             return false;
         }
     }
-    int  *Push (int element)
+    void Push (int element)
     {
         Top = Top + 1;
         Stack[Top] = element;
-        return Stack;
     }
     int Pop()
     {
@@ -44,6 +43,10 @@ int main()
     S1.Push(3);
     S1.Push(4);
     S1.Push(5);
+    if (S1.Top > 4)
+    {
+        cout << "its out of stack's size and u cant push any thing else" << endl;
+    }
     cout << "the arrays elements are : " << endl;
     for (int i : S1.Stack)
     {
