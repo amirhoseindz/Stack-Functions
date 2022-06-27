@@ -1,5 +1,10 @@
 #include <iostream>
 using namespace std;
+struct Stacks
+{
+    int Stack[5];
+    int Top;
+};
 bool CheckStackEmptiness(int top)
 {
     if (top == -1)
@@ -32,19 +37,18 @@ int Pop(int Stack[5], int &top)
 }
 int main()
 {
-    int top;
-    top = -1;
-    int Stack[5];
-    Push(Stack, 1, top);
-    Push(Stack, 2, top);
-    Push(Stack, 3, top);
-    Push(Stack, 4, top);
-    Push(Stack, 5, top);
+    Stacks S1;
+    S1.Top = -1;
+    Push(S1.Stack, 1, S1.Top);
+    Push(S1.Stack, 2, S1.Top);
+    Push(S1.Stack, 3, S1.Top);
+    Push(S1.Stack, 4, S1.Top);
+    Push(S1.Stack, 5, S1.Top);
     cout << "the arrays elements are : " << endl;
-    for (int i : Stack)
+    for (int i : S1.Stack)
     {
         cout << i << ", ";
     }
     cout << endl;
-    cout << "the element that pops out is : " << Pop(Stack, top) << endl;
+    cout << "the element that pops out is : " << Pop(S1.Stack, S1.Top) << endl;
 }
