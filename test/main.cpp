@@ -18,20 +18,35 @@ struct Stacks
     void Push (int element)
     {
         Top = Top + 1;
-        Stack[Top] = element;
+        try
+        {
+            if (Top > 4)
+            {
+                throw Top;
+            }
+            Stack[Top] = element;
+        }
+        catch (int Exception)
+        {
+            cout << "Error, its out of stack's size and u cant push any thing else and the last top value will still be "
+            << Exception - 1 << endl;
+        }
     }
     int Pop()
     {
-        if (CheckStackEmptiness(Top))
+        try
         {
-            cout << "underflow" << endl;
-            return -1;
+            if (CheckStackEmptiness(Top))
+            {
+                throw Top;
+            }
         }
-        else
+        catch (int Exception)
         {
-            Top = Top - 1;
-            return Stack [Top + 1];
+            cout << "Error, the stack is empty so top value still is " << Exception << endl;
         }
+        Top = Top - 1;
+        return Stack [Top + 1];
     }
 };
 int main()
@@ -43,10 +58,6 @@ int main()
     S1.Push(3);
     S1.Push(4);
     S1.Push(5);
-    if (S1.Top > 4)
-    {
-        cout << "its out of stack's size and u cant push any thing else" << endl;
-    }
     cout << "the arrays elements are : " << endl;
     for (int i : S1.Stack)
     {
