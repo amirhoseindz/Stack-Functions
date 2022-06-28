@@ -17,52 +17,56 @@ struct Stacks
     }
     void Push (int element)
     {
+        if (Top == sizeof(Stack)/sizeof(Stack[0]) - 1)
+        {
+            throw Top;
+        }
         Top = Top + 1;
-        try
-        {
-            if (Top > 4)
-            {
-                throw Top;
-            }
-            Stack[Top] = element;
-        }
-        catch (int Exception)
-        {
-            cout << "Error, its out of stack's size and u cant push any thing else and the last top value will still be "
-            << Exception - 1 << endl;
-        }
+        Stack[Top] = element;
     }
     int Pop()
     {
-        try
+        if (CheckStackEmptiness(Top))
         {
-            if (CheckStackEmptiness(Top))
-            {
-                throw Top;
-            }
+            throw "the stack is empty";
         }
-        catch (int Exception)
+        else
         {
-            cout << "Error, the stack is empty so top value still is " << Exception << endl;
+            Top = Top - 1;
+            return Stack [Top + 1];
         }
-        Top = Top - 1;
-        return Stack [Top + 1];
     }
 };
 int main()
 {
     Stacks S1;
     S1.Top = -1;
-    S1.Push(1);
-    S1.Push(2);
-    S1.Push(3);
-    S1.Push(4);
-    S1.Push(5);
+    try
+    {
+        S1.Push(1);
+        S1.Push(2);
+        S1.Push(3);
+        S1.Push(4);
+        S1.Push(5);
+        S1.Push(6);
+    }
+    catch(int Exception)
+    {
+        cout << "Error : its out of stack's size and u cant push any more elements and the top value will still be : "
+        << Exception << endl;
+    }
     cout << "the arrays elements are : " << endl;
     for (int i : S1.Stack)
     {
         cout << i << ", ";
     }
     cout << endl;
-    cout << "the element that pops out is : " << S1.Pop() << endl;
+    try
+    {
+        cout << "the element that pops out is : " << S1.Pop() << endl;
+    }
+    catch(const char *Exception)
+    {
+        cout << "Error : " << Exception << endl;
+    }
 }
