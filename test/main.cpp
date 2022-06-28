@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 struct Stacks
 {
@@ -19,7 +20,7 @@ struct Stacks
     {
         if (Top == sizeof(Stack)/sizeof(Stack[0]) - 1)
         {
-            throw Top;
+            throw out_of_range (", you cant push any more elements");
         }
         Top = Top + 1;
         Stack[Top] = element;
@@ -27,14 +28,9 @@ struct Stacks
     int Pop()
     {
         if (CheckStackEmptiness(Top))
-        {
-            throw "the stack is empty";
-        }
-        else
-        {
-            Top = Top - 1;
-            return Stack [Top + 1];
-        }
+            throw out_of_range ("the stack is empty");
+        Top = Top - 1;
+        return Stack [Top + 1];
     }
 };
 int main()
@@ -50,10 +46,9 @@ int main()
         S1.Push(5);
         S1.Push(6);
     }
-    catch(int Exception)
+    catch(out_of_range &Exception)
     {
-        cout << "Error : its out of stack's size and u cant push any more elements and the top value will still be : "
-        << Exception << endl;
+        cout << "Error : its out of stack's size " << Exception.what() << endl;
     }
     cout << "the arrays elements are : " << endl;
     for (int i : S1.Stack)
@@ -65,8 +60,8 @@ int main()
     {
         cout << "the element that pops out is : " << S1.Pop() << endl;
     }
-    catch(const char *Exception)
+    catch(out_of_range &Exception)
     {
-        cout << "Error : " << Exception << endl;
+        cout << "\n Error, "<< Exception.what() << endl;
     }
 }
